@@ -1,0 +1,8 @@
+<!-- -->
+<launch>
+  <!-- send table.xml to param server -->
+  <group ns="time_modification">
+    <node pkg="synchronization" type="time_modification" name="time_modification" output="screen">
+    </node>
+  </group>
+</launch>

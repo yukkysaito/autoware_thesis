@@ -1,0 +1,18 @@
+<!-- -->
+<launch>
+	<arg name="driving_lane_csv" default="" />
+	<arg name="passing_lane_csv" default="" />
+    <arg name="decelerate" default="1" />
+
+	<!-- rosrun waypoint_maker waypoint_loader _filename:="path file" -->
+	<node pkg="waypoint_maker" type="waypoint_loader" name="waypoint_loader" output="screen">
+	    <param name="driving_lane_csv" value="$(arg driving_lane_csv)" />
+	    <param name="passing_lane_csv" value="$(arg passing_lane_csv)" />
+        <param name="decelerate" value="$(arg decelerate)" />
+	</node>
+		
+		
+	<node pkg="waypoint_maker" type="waypoint_marker_publisher" name="waypoint_marker_publisher"/>
+
+
+</launch>

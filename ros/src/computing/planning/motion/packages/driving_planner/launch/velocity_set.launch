@@ -1,0 +1,9 @@
+<!-- -->
+<launch>
+
+
+	<node pkg="driving_planner" type="velocity_set" name="velocity_set" output="screen">
+
+	</node>
+
+</launch>
