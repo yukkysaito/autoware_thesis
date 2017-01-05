@@ -67,7 +67,25 @@ subs :
            vel_mux_select:
              depend : sim_mode
              depend_bool : 'lambda v : v == 0'
-           stat_topic : [ lf ]  
+           stat_topic : [ lf ]
+
+  - name : Synchronization
+    desc : Synchronization desc sample
+    subs :
+    - name : synchronization
+      desc : synchronization desc sample
+      subs :
+      - name : time_modification
+        desc : time_modification desc sample
+        cmd  : roslaunch synchronization time_modification.launch
+        param: synchronization
+        gui  :
+          flags : [ need_camera_info ]
+          sel_cam_dialog_only : [ camera_id ]
+          sel_cam_dialog_allow: [ camera_id ]
+          camera_id :
+            border : 16
+            flags : [ all ]
 
   - name : Detection
     desc : Detection desc sample
@@ -124,11 +142,23 @@ subs :
             flags : [ all ]
           sync :
             func : self.button_synchronization.GetValue()
-            
+
       - name : rcnn_node
         desc : rcnn_node desc sample
         cmd  : roslaunch cv_tracker rcnn.launch
         param: rcnn
+        gui   :
+          flags : [ need_camera_info ]
+          sel_cam_dialog_only : [ camera_id ]
+          sel_cam_dialog_allow: [ camera_id ]
+          camera_id :
+            border : 16
+            flags : [ all ]
+
+      - name : ssd_unc
+        desc : ssd_unc desc sample
+        cmd  : roslaunch cv_tracker ssd.launch
+        param: ssd
         gui   :
           flags : [ need_camera_info ]
           sel_cam_dialog_only : [ camera_id ]
@@ -420,11 +450,11 @@ subs :
             depend : param_flag
             depend_bool : 'lambda v : v == 1'
           minimum_lookahead_threshold:
-            depend : param_flag   
-            depend_bool : 'lambda v : v == 0'          
+            depend : param_flag
+            depend_bool : 'lambda v : v == 0'
           threshold_ratio:
             depend : param_flag
-            depend_bool : 'lambda v : v == 0' 
+            depend_bool : 'lambda v : v == 0'
           stat_topic : [ lf ]
       - name : lattice_twist_convert
         desc : lattice_twist_convert desc sample
@@ -439,7 +469,7 @@ subs :
          param: waypoint_loader
          gui  :
            lane_waypoint_csv :
-             prop  : 1    
+             prop  : 1
        - name : waypoint_saver
          desc : waypoint_saver desc sample
          cmd  : roslaunch waypoint_maker waypoint_saver.launch
@@ -455,7 +485,7 @@ subs :
          param: waypoint_clicker
     - name : waypoint_follower
       desc : waypoint_follower desc sample
-      subs :   
+      subs :
        - name : pure_pursuit
          desc : pure_pursuit desc sample
          cmd  : roslaunch waypoint_follower pure_pursuit.launch
@@ -468,12 +498,12 @@ subs :
              depend : param_flag
              depend_bool : 'lambda v : v == 1'
            minimum_lookahead_threshold:
-             depend : param_flag   
-             depend_bool : 'lambda v : v == 0'          
+             depend : param_flag
+             depend_bool : 'lambda v : v == 0'
            threshold_ratio:
              depend : param_flag
-             depend_bool : 'lambda v : v == 0' 
-           stat_topic : [ lf ]  
+             depend_bool : 'lambda v : v == 0'
+           stat_topic : [ lf ]
        - name : twist_filter
          desc : twist_filter desc sample
          cmd  : roslaunch waypoint_follower twist_filter.launch
@@ -482,7 +512,7 @@ subs :
          desc : wf_simulator desc sample
          cmd  : roslaunch waypoint_follower wf_simulator.launch
          param: wf_simulator
-         
+
 buttons:
   car_dpm :
     param   : car_dpm
@@ -801,7 +831,7 @@ params :
       min   : 2
       max   : 10
       v     : 9
-      
+
   - name  : euclidean_cluster
     vars  :
     - name    : publish_ground
@@ -836,7 +866,7 @@ params :
       v       : 0.5
       cmd_param :
         dash        : ''
-        delim       : ':='   
+        delim       : ':='
     - name    : leaf_size
       desc    : leaf_size desc sample
       label   : 'leaf size'
@@ -845,7 +875,7 @@ params :
       v       : 0.1
       cmd_param :
         dash        : ''
-        delim       : ':='  
+        delim       : ':='
     - name    : cluster_size_min
       desc    : cluster_size_min desc sample
       label   : 'cluster size minimum'
@@ -854,7 +884,7 @@ params :
       v       : 50
       cmd_param :
         dash        : ''
-        delim       : ':='   
+        delim       : ':='
     - name    : cluster_size_max
       desc    : cluster_size_max desc sample
       label   : 'cluster size maximum'
@@ -863,7 +893,7 @@ params :
       v       : 2500
       cmd_param :
         dash        : ''
-        delim       : ':='              
+        delim       : ':='
     - name      : sync
       kind      : hide
       v         : False
@@ -1076,7 +1106,7 @@ params :
     vars  :
     - name    : pose_mux_select
       desc    : pose_mux_select desc sample
-      label   : Pose Select 
+      label   : Pose Select
       kind    : radio_box
       choices : ['ndt_matching','gnss']
       descs   : ['ndt_matching desc sample', 'gnss desc sample']
@@ -1101,7 +1131,7 @@ params :
       v       : False
       cmd_param:
         dash     : ''
-        delim    : ':='        
+        delim    : ':='
 
   - name  : waypoint_follower
     topic : /config/waypoint_follower
@@ -1146,13 +1176,13 @@ params :
       label : displacement_threshold
       min   : 0
       max   : 1.0
-      v     : 0.0 
+      v     : 0.0
     - name  : relative_angle_threshold
       desc  : relative_angle_threshold desc sample
       label : relative_angle_threshold
       min   : 0
       max   : 90
-      v     : 0   
+      v     : 0
     - name    : linear_interpolate_mode
       desc    : linear_interpolate_mode desc sample
       label   : 'Linear Interpolate'
@@ -1161,7 +1191,7 @@ params :
       cmd_param :
         dash        : ''
         delim       : ':='
-        
+
   - name  : velocity_set
     topic : /config/velocity_set
     msg   : ConfigVelocitySet
@@ -1324,13 +1354,13 @@ params :
     topic : /config/twist_filter
     msg   : ConfigTwistFilter
     vars  :
-    - name    : lateral_accel_limit 
+    - name    : lateral_accel_limit
       desc    : lateral_accel_limit  desc sample
       label   : 'lateral_accel_limit :'
       min   : 0
       max   : 5.0
       v         : 0.8
-  
+
   - name  : wf_simulator
     vars  :
     - name    : initialize_source
@@ -1343,7 +1373,7 @@ params :
       v       : Rviz
       cmd_param:
         dash     : ''
-        delim    : ':='   
+        delim    : ':='
 
   - name  : car_kf
     topic : /config/car_kf
@@ -1656,7 +1686,7 @@ params :
     - name  : traffic_light
       desc  : traffic_light desc sample
       v     : 0
-      
+
   - name  : lane_select
     topic : /config/lane_select
     msg   : ConfigLaneSelect
@@ -1676,7 +1706,7 @@ params :
     vars  :
     - name      : save_filename
       desc      : save_filename desc sample
-      label     : Save File 
+      label     : Save File
       kind      : path
       path_type : save
       v         : '/tmp/saved_waypoints.csv'
@@ -1716,7 +1746,7 @@ params :
       path_type : save
       v         : /tmp/lane_waypoint.csv
       rosparam  : /waypoint_clicker/output_file
-        
+
   - name  : waypoint_loader
     vars  :
     - name      : driving_lane_csv
@@ -1734,15 +1764,15 @@ params :
       v         : /tmp/driving_lane.csv
       cmd_param :
         dash        : ''
-        delim       : ':='        
-    - name      : decelerate  
+        delim       : ':='
+    - name      : decelerate
       desc      : decelerate   desc sample
       label   : 'decelerate :'
       v         : 1.0
       cmd_param :
         dash        : ''
         delim       : ':='
-        
+
   - name  : ndt_mapping
     topic : /config/ndt_mapping
     msg   : ConfigNdtMapping

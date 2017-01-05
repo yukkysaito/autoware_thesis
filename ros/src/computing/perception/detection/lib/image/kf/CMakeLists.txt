@@ -34,13 +34,13 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 include_directories(src)
 
 ## Declare a cpp library
-add_library(kf
-   src/kf.cpp
-)
+#add_library(kf
+#   src/kf.cpp
+#)
 
-target_link_libraries(kf
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBS}
-)
+#target_link_libraries(kf
+#  ${catkin_LIBRARIES}
+#  ${OpenCV_LIBS}
+#)
 
-add_dependencies(kf runtime_manager_generate_messages_cpp  cv_tracker_generate_messages_cpp)
+#add_dependencies(kf runtime_manager_generate_messages_cpp  cv_tracker_generate_messages_cpp)

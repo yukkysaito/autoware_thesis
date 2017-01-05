@@ -14,7 +14,7 @@
           <remap from="/config/obj_car/kf" to="/config/car_kf" />
           <param name="image_node" type="str" value="$(arg camera_id)$(arg image_src_car)"/>
           <remap from="/obj_car/image_obj_ranged" to="/sync_tracking/obj_car/image_obj_ranged" if="$(arg sync)" />
-          <remap from="/image_raw" to="/sync_tracking/image_raw" if="$(arg sync)" />
+          <remap from="/image_raw" to="/sync_tracking/obj_car/image_raw" if="$(arg sync)" />
       </node>
 
     </group>
@@ -29,7 +29,7 @@
           <remap from="/config/obj_person/kf" to="/config/pedestrian_kf" />
           <param name="image_node" type="str" value="$(arg camera_id)$(arg image_src_pedestrian)"/>
           <remap from="/obj_person/image_obj_ranged" to="/sync_tracking/obj_person/image_obj_ranged" if="$(arg sync)" />
-          <remap from="/image_raw" to="/sync_tracking/image_raw" if="$(arg sync)" />
+          <remap from="/image_raw" to="/sync_tracking/obj_person/image_raw" if="$(arg sync)" />
       </node>
 
     </group>
@@ -39,4 +39,5 @@
     <arg name="car" value="$(arg car)"/>
     <arg name="pedestrian" value="$(arg pedestrian)"/>
   </include>
+
 </launch>

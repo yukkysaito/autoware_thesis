@@ -5,8 +5,8 @@
   <arg name="pedestrian" default="false" />
   <arg name="obj_car" default="obj_car" />
   <arg name="obj_person" default="obj_person" />
-  <arg name="vscan_image" default="false" />
-  <arg name="points_image" default="true" />
+  <arg name="vscan_image" default="true" />
+  <arg name="points_image" default="false" />
   <arg name="scan_image" default="false" />
 
 

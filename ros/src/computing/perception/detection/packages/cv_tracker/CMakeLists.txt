@@ -160,7 +160,11 @@ ADD_EXECUTABLE(kf_track
 TARGET_LINK_LIBRARIES(kf_track
   ${catkin_LIBRARIES}
   ${OpenCV_LIBS}
-  kf
+#  kf
+)
+ADD_DEPENDENCIES(kf_track
+  cv_tracker_generate_messages_cpp
+  libdpm_ocv_generate_messages_cpp
 )
 
 ## obj_reproj ##
@@ -217,7 +221,7 @@ ADD_DEPENDENCIES(klt_track
 ############# RCNN#############
 
 ###########################################CAFFE NEEDS TO BE PREVIOUSLY COMPILED####################
-##############DONT FORGET TO INSTALL fastrcnn's caffe dynamic libraries to /usr/local/lib	 	### 
+##############DONT FORGET TO INSTALL fastrcnn's caffe dynamic libraries to /usr/local/lib	 	###
 set(CAFFE_PATH "$ENV{HOME}/fast-rcnn/caffe-fast-rcnn/distribute")
 ####################################################################################################
 

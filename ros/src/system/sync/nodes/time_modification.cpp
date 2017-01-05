@@ -70,12 +70,12 @@ int main(int argc, char **argv) {
   ros::NodeHandle private_nh("~");
 
   ros::Subscriber image_raw_sub =
-      nh.subscribe("/image_raw", 1, image_raw_callback);
+      nh.subscribe("image_raw", 1, image_raw_callback);
   ros::Subscriber points_raw_sub =
-      nh.subscribe("/points_raw", 1, points_raw_callback);
+      nh.subscribe("points_raw", 1, points_raw_callback);
 
-  image_raw__pub = nh.advertise<sensor_msgs::Image>("image_raw", 1);
-  points_raw__pub = nh.advertise<sensor_msgs::PointCloud2>("points_raw", 1);
+  image_raw__pub = nh.advertise<sensor_msgs::Image>("/image_raw", 1);
+  points_raw__pub = nh.advertise<sensor_msgs::PointCloud2>("/points_raw", 1);
 
   ros::spin();
 
